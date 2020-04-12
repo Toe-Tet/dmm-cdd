@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>AML/CFT Reporting & Monitoring System</title>
+  <title>CDD Record Keeping System</title>
   <link rel="icon" href="/assets/images/favicon.png" sizes="16x16">
   <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
   <!-- Bootstrap core CSS-->

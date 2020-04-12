@@ -12,7 +12,7 @@ class LoginController extends BaseController
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/ttr';
+    protected $redirectTo = '/cdd';
 
     // public function getLogin(){
     //     return view('auth.login');
