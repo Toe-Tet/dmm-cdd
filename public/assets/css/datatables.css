@@ -1,0 +1,13 @@
+
+
+tr {
+    font-size: 14px;
+}
+
+.dataTables_filter {
+    display: none;
+}
+
+.dataTables_paginate {
+    float: right;
+}
