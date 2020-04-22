@@ -16,7 +16,14 @@
                 data-toggle="tooltip" data-placement="right" title="Tables" style="border-bottom: 1px solid #f5f5f5;">
                 <a class="nav-link text-center" href=""><img src="/assets/images/logo.png" class="py-3" style="width: 100px;" alt="">{{--  Aung Si <span
                 class="title">( China - Myanmar Express & Alibaba Agent )</span> --}}</a>
-            </li> 
+            </li>
+            <li class="nav-item"
+                data-toggle="tooltip" data-placement="right" title="Tables">
+                <a class="nav-link pro_semi_light @if(strpos(Route::getFacadeRoot()->current()->uri(),'/dashboard') !== false) active-nav @else nav-link-text @endif"
+                   href="{{ route('dashboard.index') }}">
+                    <span>Dashboard</span>
+                </a>
+            </li>
             <li class="nav-item"
                 data-toggle="tooltip" data-placement="right" title="Tables">
                 <a class="nav-link pro_semi_light @if(strpos(Route::getFacadeRoot()->current()->uri(),'/cdd') !== false) active-nav @else nav-link-text @endif"

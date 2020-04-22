@@ -16,8 +16,8 @@ class ApiClient {
         $config = [
             'base_uri' => env('API_URL'),
             'headers' => [
-                'api-key' => env('API_KEY'),
-                'Authorization' => 'Bearer ' . getAuthToken(),
+                // 'api-key' => env('API_KEY'),
+                // 'Authorization' => 'Bearer ' . getAuthToken(),
                 'Accept' => 'application/json'
             ],
         ];

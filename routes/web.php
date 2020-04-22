@@ -28,6 +28,7 @@ Route::group([
 ], function(){
 	Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
+	Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
     Route::get('/cdd', 'CddController@index')->name('cdd.index');
     // Route::post('/', 'Auth\LoginController@postLogin')->name('login.post');
 });

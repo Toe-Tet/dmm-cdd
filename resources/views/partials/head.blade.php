@@ -13,7 +13,7 @@
   {{--<script src="/assets/template/vendor/bootstrap/js/bootstrap.js"></script>--}}
 
   <!-- Custom fonts for this template-->
-  <link href="/assets/template/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="/assets/libs/fontawesome/css/all.css" rel="stylesheet" type="text/css">
 
   <!-- Custom styles for this template-->
   <link href="/assets/template/css/sb-admin.css" rel="stylesheet">

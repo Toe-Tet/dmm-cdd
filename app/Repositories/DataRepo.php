@@ -9,8 +9,8 @@ class DataRepo {
 		return app(AuthRepository::class);
 	}
 
-	public static function customer()
+	public static function cdd()
 	{
-		return app(CustomerRepository::class);
+		return app(CddRepository::class);
 	}
 }

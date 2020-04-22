@@ -33,32 +33,110 @@
         <hr>
         <!-- /.row -->
         <div class="container">
-            <span style=" padding: 3px 15px 3px 3px;">Search</span>
-            <input style="" type="text" id="searchFilter">
+            <form action="{{ route('cdd.index') }}" method="GET">
+                @csrf 
+            <input style="padding-left: 10px;" type="text" value="{{ isset($keyword) ? $keyword : '' }}" name="keyword" id="searchFilter">
+            <button class="btn btn-outline-primary btn-sm mx-3 px-3" style="border-radius: 50px;" type="submit">Search</button>
+            <a href="{{ route('cdd.index') }}" class="btn btn-outline-info btn-sm px-3" style="border-radius: 50px;">Reset</a>
+            </form>
             <br><br>
-            <table class="table table-hover table-responsive-sm" style="padding: 0px; margin: 0px;" width="100%"
-                   id="staffs-table">
+            <table class="table table-hover table-responsive-sm" style="padding: 0px; margin: 0px;" width="100%">
                 <thead>
                 <tr>
                     <th>No</th>
-                    <th>Transaction ID</th>
                     <th>Name</th>
+                    <th>Email</th>
                     <th>Phone No</th>
-                    <th>Datetime</th>
                     <th>Action</th>
                 </tr>
                 </thead>
+                @if(empty($cdds))
+                    <tr>
+                        <td colspan="6" align="center">
+                            No Data
+                        </td>
+                    </tr>
+                    @else
+                    @php
+                    if(isset($paginate)){
+                        $n = (($paginate['current_page'] * $paginate['per_page']) - $paginate['per_page']) + 1;
+                    } else {
+                        $n = 1;
+                    }
+                    @endphp
+                    @foreach($cdds as $user)
+
+                    <tr class="colorchange">
+                        <td>{{ $n }}</td>
+                        <td>{{ $user['name'] }}</td>
+                        <td>{!! (!$user['email'] || $user['email'] == "") ? '<span class="badge badge-light text-italic">none</span>' : $user['email'] !!}</td>
+                        <td>{{ $user['phone'] }}</td>
+                        {{-- <td>{{ \Carbon\Carbon::parse($user['transaction_date'])->format('d/m/Y h:i A') }}</td> --}}
+                        <td>
+                            <span class="btn-group">
+                                <div>
+                                    <a href="#" class="btn btn-light waves-effect" data-toggle="modal" data-target="#modalCddShow{{ $user['id'] }}"><i class="fa fa-eye"></i></a>
+
+                                    @include('cdd.show')
+                                </div>
+                           </span>
+                       </td>
+                    </tr>
+                    @php $n++ @endphp
+                    @endforeach
+                @endif
             </table>
-            {{--</div>--}}
-
-
         </div>
+        <div class="container row">
+            @if(isset($paginate))
+            <div class="col-6">
+                <p class="p-3" style="color: gray;">Showing {{ $paginate['from'] }} to {{ $paginate['to'] }} of {{ $paginate['total'] }} entries</p>
+            </div>
+            <div class="col-6 pt-3">
+                <ul class="pagination pull-right">
+                    <li class="paginate_button page-item previous {{ $paginate['current_page'] == 1 ? 'disabled' : '' }}">
+                        <a href="{{ route('cdd.index') }}?page=1" aria-controls="m_table_1" data-dt-idx="3"
+                            tabindex="0" class="page-link">
+                            <i class="fa fa-angle-double-left" style="font-size: 10px;"></i>
+                        </a>
+                    </li>
+                    <li class="paginate_button page-item previous {{ $paginate['current_page'] - 1 <= 0 ? 'disabled' : '' }}">
+                        <a href="{{ route('cdd.index').'?page='.($paginate['current_page'] - 1) }}"
+                            aria-controls="m_table_1" data-dt-idx="3" tabindex="0" class="page-link">
+                            <i class="fa fa-angle-left" style="font-size: 10px;"></i>
+                        </a>
+                    </li>
+                    @for($i = 1;  $i <= $paginate['total_page']; $i++)
+                    <li class="paginate_button page-item {{ $paginate['current_page'] == $i ? 'active' : '' }}">
+                        <a href="{{ route('cdd.index').'?page='.$i }}" aria-controls="m_table_1"
+                            data-dt-idx="3" tabindex="0" class="page-link">
+                            {{ $i }}
+                        </a>
+                    </li>
+                    @endfor
+                    <li class="paginate_button page-item next {{ $paginate['current_page'] + 1 > $paginate['total_page'] ? 'disabled' : '' }}">
+                        <a href="{{ route('cdd.index').'?page='.($paginate['current_page'] + 1) }}"
+                            aria-controls="m_table_1" data-dt-idx="3" tabindex="0" class="page-link">
+                            <i class="fa fa-angle-right" style="font-size: 10px;"></i>
+                        </a>
+                    </li>
+                    <li class="paginate_button page-item next {{ $paginate['current_page'] == $paginate['total_page'] ? 'disabled' : '' }}">
+                        <a href="{{ route('cdd.index').'?page='.$paginate['total_page'] }}"
+                            aria-controls="m_table_1" data-dt-idx="3" tabindex="0" class="page-link">
+                            <i class="fa fa-angle-double-right" style="font-size: 10px;"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            @endif
+        </div>
+    </div>
     </div>
 @endsection
 
 @push('script')
-    <script src="/assets/libs/datatables/jquery.dataTables.min.js"></script>
-    <script src="/assets/libs/datatables/dataTables.bootstrap4.min.js"></script>
+    {{-- <script src="/assets/libs/datatables/jquery.dataTables.min.js"></script>
+    <script src="/assets/libs/datatables/dataTables.bootstrap4.min.js"></script> --}}
 
     {{-- <script>
 

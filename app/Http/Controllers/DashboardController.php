@@ -6,7 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Repositories\DataRepo;
 use Illuminate\Http\Request;
 
-class CddController extends BaseController
+class DashboardController extends BaseController
 {
     protected $cdd_repo;
 
@@ -15,35 +15,13 @@ class CddController extends BaseController
         $this->cdd_repo = DataRepo::cdd();
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $param = [];
-        // $from_date = null;
-        // $to_date = null;
-        // if($request->from_date && $request->to_date){
-        //     $param['from'] = $request->from_date;
-        //     $param['to'] = $request->to_date;
-        //     $from_date = $request->from_date;
-        //     $to_date = $request->to_date;
-        // }
-        if($request->page){
-            $param['page'] = $request->page;
-        }
+        $response = $this->cdd_repo->all_data_count();
 
-        $response = $this->cdd_repo->users($param);
+        $cdds = $response['data'][0];
 
-        $cdds = $response['data']['data'];
-
-        $paginate = [
-            'current_page' => $response['data']['current_page'],
-            'total_page' => $response['data']['last_page'],
-            'per_page' => $response['data']['per_page'],
-            'total' => $response['data']['total'],
-            'from' => $response['data']['from'],
-            'to' => $response['data']['to']
-        ];
-
-        return $this->view('cdd.index', compact('cdds', 'paginate'));
+        return $this->view('dashboard.index', compact('cdds'));
     }
     // public function post(){
     //     $post = Post::all()->first();
