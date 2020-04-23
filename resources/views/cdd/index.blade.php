@@ -33,13 +33,20 @@
         <hr>
         <!-- /.row -->
         <div class="container">
-            <form action="{{ route('cdd.index') }}" method="GET">
-                @csrf 
-            <input style="padding-left: 10px;" type="text" value="{{ isset($keyword) ? $keyword : '' }}" name="keyword" id="searchFilter">
-            <button class="btn btn-outline-primary btn-sm mx-3 px-3" style="border-radius: 50px;" type="submit">Search</button>
-            <a href="{{ route('cdd.index') }}" class="btn btn-outline-info btn-sm px-3" style="border-radius: 50px;">Reset</a>
-            </form>
-            <br><br>
+            <div class="row">
+                <div class="col-6">
+                    <form action="{{ route('cdd.index') }}" method="GET">
+                        @csrf 
+                    <input style="padding-left: 10px;" type="text" value="{{ isset($keyword) ? $keyword : '' }}" name="keyword" id="searchFilter">
+                    <button class="btn btn-outline-primary btn-sm mx-3 px-3" style="border-radius: 50px;" type="submit">Search</button>
+                    <a href="{{ route('cdd.index') }}" class="btn btn-outline-info btn-sm px-3" style="border-radius: 50px;">Reset</a>
+                    </form>
+                    <br>
+                </div>
+                <div class="col-6 text-right">
+                    <p class="px-3 pb-3 pt-1" style="color: gray;">Showing {{ $paginate['from'] }} to {{ $paginate['to'] }} of {{ $paginate['total'] }} entries</p>
+                </div>
+            </div>
             <table class="table table-hover table-responsive-sm" style="padding: 0px; margin: 0px;" width="100%">
                 <thead>
                 <tr>
@@ -89,11 +96,8 @@
         </div>
         <div class="container row">
             @if(isset($paginate))
-            <div class="col-6">
-                <p class="p-3" style="color: gray;">Showing {{ $paginate['from'] }} to {{ $paginate['to'] }} of {{ $paginate['total'] }} entries</p>
-            </div>
-            <div class="col-6 pt-3">
-                <ul class="pagination pull-right">
+            <div class="col-12 pt-3">
+                <ul class="pagination justify-content-center">
                     <li class="paginate_button page-item previous {{ $paginate['current_page'] == 1 ? 'disabled' : '' }}">
                         <a href="{{ route('cdd.index') }}?page=1" aria-controls="m_table_1" data-dt-idx="3"
                             tabindex="0" class="page-link">
@@ -106,6 +110,7 @@
                             <i class="fa fa-angle-left" style="font-size: 10px;"></i>
                         </a>
                     </li>
+                    @if($paginate['total_page'] <= 20)
                     @for($i = 1;  $i <= $paginate['total_page']; $i++)
                     <li class="paginate_button page-item {{ $paginate['current_page'] == $i ? 'active' : '' }}">
                         <a href="{{ route('cdd.index').'?page='.$i }}" aria-controls="m_table_1"
@@ -114,6 +119,132 @@
                         </a>
                     </li>
                     @endfor
+                    @elseif($paginate['current_page'] <= 6)
+                        @for($i = 1;  $i <= $paginate['total_page']; $i++)
+                        @if($i <= $paginate['current_page'] + 1)
+                        <li class="paginate_button page-item {{ $paginate['current_page'] == $i ? 'active' : '' }}">
+                            <a href="{{ route('cdd.index').'?page='.$i }}" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                {{ $i }}
+                            </a>
+                        </li>
+                        @endif
+                        @endfor
+                        <li class="paginate_button page-item">
+                            <a href="#" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                .
+                            </a>
+                        </li>
+                        <li class="paginate_button page-item">
+                            <a href="#" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                .
+                            </a>
+                        </li>
+                        <li class="paginate_button page-item">
+                            <a href="{{ route('cdd.index').'?page='.($paginate['total_page'] - 1) }}" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                {{ $paginate['total_page'] - 1 }}
+                            </a>
+                        </li>
+                        <li class="paginate_button page-item">
+                            <a href="{{ route('cdd.index').'?page='.$paginate['total_page'] }}" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                {{ $paginate['total_page'] }}
+                            </a>
+                        </li>
+                    @elseif($paginate['current_page'] >= $paginate['total_page'] - 5)
+                        <li class="paginate_button page-item">
+                            <a href="{{ route('cdd.index').'?page=1' }}" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                {{ 1 }}
+                            </a>
+                        </li>
+                        <li class="paginate_button page-item">
+                            <a href="{{ route('cdd.index').'?page=2' }}" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                {{ 2 }}
+                            </a>
+                        </li>
+                        <li class="paginate_button page-item">
+                            <a href="#" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                .
+                            </a>
+                        </li>
+                        <li class="paginate_button page-item">
+                            <a href="#" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                .
+                            </a>
+                        </li>
+                        @for($i = ($paginate['current_page'] - 1);  $i <= $paginate['total_page']; $i++)
+                        <li class="paginate_button page-item {{ $paginate['current_page'] == $i ? 'active' : '' }}">
+                            <a href="{{ route('cdd.index').'?page='.$i }}" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                {{ $i }}
+                            </a>
+                        </li>
+                        @endfor
+                    @else
+                        <li class="paginate_button page-item">
+                            <a href="{{ route('cdd.index').'?page=1' }}" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                {{ 1 }}
+                            </a>
+                        </li>
+                        <li class="paginate_button page-item">
+                            <a href="{{ route('cdd.index').'?page=2' }}" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                {{ 2 }}
+                            </a>
+                        </li>
+                        <li class="paginate_button page-item">
+                            <a href="#" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                .
+                            </a>
+                        </li>
+                        <li class="paginate_button page-item">
+                            <a href="#" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                .
+                            </a>
+                        </li>
+                        @for($i = ($paginate['current_page'] - 1);  $i <= ($paginate['current_page'] + 1); $i++)
+                        <li class="paginate_button page-item {{ $paginate['current_page'] == $i ? 'active' : '' }}">
+                            <a href="{{ route('cdd.index').'?page='.$i }}" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                {{ $i }}
+                            </a>
+                        </li>
+                        @endfor
+                        <li class="paginate_button page-item">
+                            <a href="#" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                .
+                            </a>
+                        </li>
+                        <li class="paginate_button page-item">
+                            <a href="#" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                .
+                            </a>
+                        </li>
+                        <li class="paginate_button page-item">
+                            <a href="{{ route('cdd.index').'?page='.($paginate['total_page'] - 1) }}" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                {{ $paginate['total_page'] - 1 }}
+                            </a>
+                        </li>
+                        <li class="paginate_button page-item">
+                            <a href="{{ route('cdd.index').'?page='.$paginate['total_page'] }}" aria-controls="m_table_1"
+                                data-dt-idx="3" tabindex="0" class="page-link">
+                                {{ $paginate['total_page'] }}
+                            </a>
+                        </li>
+                    @endif
                     <li class="paginate_button page-item next {{ $paginate['current_page'] + 1 > $paginate['total_page'] ? 'disabled' : '' }}">
                         <a href="{{ route('cdd.index').'?page='.($paginate['current_page'] + 1) }}"
                             aria-controls="m_table_1" data-dt-idx="3" tabindex="0" class="page-link">
