@@ -37,7 +37,7 @@
                 <div class="col-6">
                     <form action="{{ route('cdd.index') }}" method="GET">
                         @csrf 
-                    <input style="padding-left: 10px;" type="text" value="{{ isset($keyword) ? $keyword : '' }}" name="keyword" id="searchFilter">
+                    <input style="padding-left: 10px;" type="text" value="{{ $keyword }}" placeholder="name, email, phone, nrc" name="keyword" id="searchFilter">
                     <button class="btn btn-outline-primary btn-sm mx-3 px-3" style="border-radius: 50px;" type="submit">Search</button>
                     <a href="{{ route('cdd.index') }}" class="btn btn-outline-info btn-sm px-3" style="border-radius: 50px;">Reset</a>
                     </form>
