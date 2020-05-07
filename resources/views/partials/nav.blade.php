@@ -14,7 +14,7 @@
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion" style="font-size: 14px; margin-top: 0px; ">
             <li class="nav-item"
                 data-toggle="tooltip" data-placement="right" title="Tables" style="border-bottom: 1px solid #f5f5f5;">
-                <a class="nav-link text-center" href=""><img src="/assets/images/logo.png" class="py-3" style="width: 100px;" alt="">{{--  Aung Si <span
+                <a class="nav-link text-center" href=""><img src="{{ asset('/assets/images/logo.png') }}" class="py-3" style="width: 100px;" alt="">{{--  Aung Si <span
                 class="title">( China - Myanmar Express & Alibaba Agent )</span> --}}</a>
             </li>
             <li class="nav-item"
