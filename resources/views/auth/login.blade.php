@@ -11,9 +11,9 @@
     <meta name="author" content="">
 
     <!-- Bootstrap core CSS-->
-    <link href="/assets/template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('/assets/template/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
-<script src="/assets/template/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="{{ asset('/assets/template/vendor/bootstrap/js/bootstrap.js') }}"></script>
 
 <!-- Custom fonts for this template-->
     {{--<link href="/assets/template/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">--}}
@@ -22,11 +22,11 @@
     {{--<link href="/assets/template/css/sb-admin.css" rel="stylesheet">--}}
 
     {{-- Custome CSS --}}
-    <link rel="stylesheet" href="/assets/template/css/mystyle.css">
+    <link rel="stylesheet" href="{{ asset('/assets/template/css/mystyle.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="/assets/libs/toastr/toastr.min.css">
-    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png"/>
-    <script src="/assets/template/vendor/jquery/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/libs/toastr/toastr.min.css') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('/assets/images/favicon.png') }}"/>
+    <script src="{{ asset('/assets/template/vendor/jquery/jquery.min.js') }}" type="text/javascript"></script>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
 
     <style>
@@ -139,7 +139,7 @@
 <body class="">
 
 <div class="login-page">
-    <img src="/assets/images/logo.png" class="center" style="padding-bottom: 20px; width: 160px" alt="">
+    <img src="{{ asset('/assets/images/logo.png') }}" class="center" style="padding-bottom: 20px; width: 160px" alt="">
     <div class="form" style="padding-top: 10px;">
         <table width="100%" style="margin-bottom: 10px;">
             <tr>
@@ -215,7 +215,7 @@
         });
 
     </script>
-    <script src="/assets/libs/toastr/toastr.min.js"></script>
+    <script src="{{ asset('/assets/libs/toastr/toastr.min.js') }}"></script>
     {!! Toastr::message() !!}
 
 </body>
