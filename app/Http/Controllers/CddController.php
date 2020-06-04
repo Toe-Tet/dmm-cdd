@@ -26,9 +26,9 @@ class CddController extends BaseController
         //     $from_date = $request->from_date;
         //     $to_date = $request->to_date;
         // }
-        $keyword = null;
-        if($keyword = $request->keyword){
-            $param['keyword'] = $keyword;
+        $keywords = null;
+        if($keywords = $request->keywords){
+            $param['keywords'] = $keywords;
         }
         if($request->page){
             $param['page'] = $request->page;
@@ -47,7 +47,7 @@ class CddController extends BaseController
             'to' => $response['data']['to']
         ];
 
-        return $this->view('cdd.index', compact('cdds', 'paginate', 'keyword'));
+        return $this->view('cdd.index', compact('cdds', 'paginate', 'keywords'));
     }
     // public function post(){
     //     $post = Post::all()->first();
